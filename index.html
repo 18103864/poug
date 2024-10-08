@@ -109,6 +109,60 @@
                         </div>
                     </nav>
                 </header>
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+                    .button-container {
+                        text-align: center;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-top: 0.3rem;
+                        margin-left: 20rem;
+                        background-color: transparent;
+                        font-family: "Lilita One", sans-serif;
+                    }
+                    .blue-button {
+                        background-color: #fd7757;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        font-size: 16px;
+                        cursor: url('https://cdn.prod.website-files.com/623c8b34fd38198807b54933/627956ef0026951effd8f125_pizza-cursor-small.png') 0 0, pointer !important;
+                        border-radius: 10px;
+                    }
+                    .blue-button:hover {
+                        background-color: #f494bc; /* Optional: hover effect */
+                    }
+                            /* Custom alert styles */
+                    .custom-alert {
+                        display: none;
+                        position: fixed;
+                        top: 10px;
+                        left: 50%;
+                        transform: translatex(-50%);
+                        background-color: #fec62e;
+                        border: 1px solid #ccc;
+                        border-radius: 20px;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                        padding: 10px 20px;
+                        z-index: 1000;
+                    }
+                    .alert-message {
+                        margin: 0;
+                        font-family: "Lilita One", sans-serif;
+                    }
+
+
+
+                </style>
+                <div class="button-container">
+                    <button class="blue-button" id="copyButton">CA: HRSPDqkoRfEYYSsEspYXnBGBabpNZYco9BQXcvrVjark</button>
+                </div>
+                <div class="overlay" id="overlay"></div>
+                <div class="custom-alert" id="customAlert" style="display: none;">
+                    <p class="alert-message">CA is copied!</p>
+                </div>
+                
             </div>
             <div class="mobile-nav homepage">
                 <header class="mobile-nav-bar closed homepage">
@@ -703,10 +757,36 @@
                 audio.play();
             }
 
-            document.querySelectorAll('.audiobutton, .clickety').forEach(button => {
+            document.querySelectorAll('.audiobutton, .clickety, .blue-button').forEach(button => {
                 button.addEventListener('mousedown', clickButton)
             }
             )
         </script>
+            <script>
+                document.getElementById('copyButton').addEventListener('click', function() {
+                    const textToCopy = this.innerText.replace('CA: ', '');
+                    const textarea = document.createElement('textarea');
+                    textarea.value = textToCopy;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showAlert(); // Show custom alert
+                });
+
+                function showAlert() {
+                    const overlay = document.getElementById('overlay');
+                    const customAlert = document.getElementById('customAlert');
+
+                    overlay.style.display = 'block';
+                    customAlert.style.display = 'block';
+
+                    // Hide alert after 2 seconds
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                        customAlert.style.display = 'none';
+                    }, 1500);
+                }
+            </script>
     </body>
 </html>
